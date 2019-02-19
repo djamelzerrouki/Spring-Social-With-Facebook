@@ -2,9 +2,7 @@ package com.example.djamel;
 
  
 import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.PagedList;
-import org.springframework.social.facebook.api.Post;
+import org.springframework.social.facebook.api.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +31,10 @@ public class FacebookController {
 			return "redirect:/connect/facebook";
 		}
 		PagedList<Post> posts = facebook.feedOperations().getPosts();
+
+ 		Group g=facebook.groupOperations().getGroup("1893960660856644");
+ 		model.addAttribute("groupName", g.getName());
+
 		model.addAttribute("profileName", posts.get(0).getFrom().getName());
 		model.addAttribute("posts", posts);
 		return "profile";
